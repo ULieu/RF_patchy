@@ -26,8 +26,8 @@ We tested the codes in the following environments:
 *INPUT:
    - For RF_patchy.m (1), the input for RL is in line #9-19, input for the self-assembly is in line #22-24
    - For CallSimulation.m (2): 
-	+ user must choose the lines compatible to either linux (line #17-21, 61-71) or windows (line #23-27, #74-80).  
-	+ Line #62,66 and #75,78 can be modified so that the .f90 files in (4) and (5) can be compile by a Fortran compiler. 	
+	+ user chooses the lines compatible to either Linux (line #17-21, 61-71) or Windows (line #23-27, #74-80).  
+	+ line #62,66 and #75,78 can be modified so that the .f90 files in (4) and (5) can be compile by a Fortran compiler. 	
 *OUTPUT: 
 After each epoch i, the output data is
    - Q-table after each epoch (train_Q_epoch*.dat)       

@@ -1,5 +1,11 @@
 %% Reinforcement Learning 
 % for learning the temperature policy of the self-assemblies of patchy particles
+%List of related codes:
+% 1. RL_patchy.m (main code)
+% 2. CallSimulation.m (function used in (1)) 
+% 3. CalculateState.m (function used in (1))
+% 4. PatchyRL_step1.f90 (used in (2))
+% 5. PathcyRL.f90 (used in (2))
 
 clearvars
 workingfolder=pwd;%the folder contain the basic files
