@@ -8,7 +8,7 @@ If use the code, please refer to articles
 
 
 ### 1-STRUCTURE OF THE FILES ### 
-   (1) 	RF_patchy.m   		main file (MATLAB)
+   (1) 	RL_patchy.m   		main file (MATLAB)
    (2)  CallSimulation.m   	function to call the simulation, used in (1) (MATLAB)
    (3)  CalculateState.m	function to calculate the sigma ratio of the structure formed by the simulation, used in (1) (MATLAB)
    (4)  PatchyRL_step1.f90	for simulation when the initial configuration is random in position and orientation (1st step of an epoch), used in (2), (Fortran90) 

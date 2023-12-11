@@ -16,14 +16,14 @@ cd(folder)
     %--for linux:
 %         irunfoldername=strcat(fname.folder,'/',fname.name); 
 %         cd(fname.name);    
-%         if irun==1; copyfile ../PatchyRF_step1.f90             
-%         else;       copyfile ../PatchyRF.f90     
+%         if irun==1; copyfile ../PatchyRL_step1.f90             
+%         else;       copyfile ../PatchyRL.f90     
 %         end
     %--for windows:
         irunfoldername=strcat(fname.folder,'\',fname.name) ; 
         cd(fname.name);     
-        if irun==1; copyfile ..\PatchyRF_step1.f90             
-        else;       copyfile ..\PatchyRF.f90     
+        if irun==1; copyfile ..\PatchyRL_step1.f90             
+        else;       copyfile ..\PatchyRL.f90     
         end
     
     if irun~=1 %copy the last snapshot of previous folder to current one
@@ -63,20 +63,20 @@ cd(folder)
 %         system('./PatchyRL_step1') 
 %         system('rm ./PatchyRL_step1')    
 %         else
-%         system('/opt/intel/bin/ifort -O3 -qopt-matmul PatchyRF.f90 -o PatchyRF')
-%         system('./PatchyRF') 
-%         system('rm ./PatchyRF') 
+%         system('/opt/intel/bin/ifort -O3 -qopt-matmul PatchyRL.f90 -o PatchyRL')
+%         system('./PatchyRL') 
+%         system('rm ./PatchyRL') 
 %         end
 %         system('rm ./*.mod') 
 %         system('rm ./*.f90') 
 
     %--in windows:  
         if irun==1
-        system('ifort /O3 /Qopt-matmul PatchyRF_step1.f90')
-        system('PatchyRF_step1') 
+        system('ifort /O3 /Qopt-matmul PatchyRL_step1.f90')
+        system('PatchyRL_step1') 
         else
-        system('ifort /O3 /Qopt-matmul PatchyRF.f90')
-        system('PatchyRF') 
+        system('ifort /O3 /Qopt-matmul PatchyRL.f90')
+        system('PatchyRL') 
         end
        
 cd(folder)    
