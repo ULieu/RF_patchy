@@ -11,10 +11,10 @@ clearvars
 workingfolder=pwd;%the folder contain the basic files
 cd(workingfolder)
 
-%% Set parameters for RL
-    epoch=2;   % number of epochs
-    eps=linspace(1,0,epoch);  %e psilon-greedy    
-    nstep=2;   % number of update steps in each epoch                
+%% Set parameters for RL:
+    Nepoch=2;   % number of epochs
+    eps=linspace(1,0,Nepoch);  %e psilon-greedy    
+    Nstep=20;   % number of update steps in each epoch                
     
     Tmin=0.2;Tmax=1.3;  % temperature range       
     T_int=0.1; %temperature mesh size
@@ -22,7 +22,6 @@ cd(workingfolder)
     A=[-0.05 0 0.05]; %actions on temperature
     s_tar=0.91 ;  %sigma value of target
     alpha=0.7;  gamma=0.9; %learning rate and discount factor
-    Rmode=2; %reward function = -|s1-s_tar|^Rmode
     
 %% Set parameters for Brownian Dynamics simulations:
     npm=256; %number of particles 
@@ -36,16 +35,15 @@ cd(workingfolder)
     timeBD=N_BD*1e-4;
 %% Save the input:
     inputfile = fopen('00input.dat','wt');
-    fprintf(inputfile,'%-10s\t  %u\n','epoch',epoch);
+    fprintf(inputfile,'%-10s\t  %u\n','epoch',Nepoch);
     fprintf(inputfile,'%-10s\t','epsilon'); fprintf(inputfile,'%.3f\t',eps);
-    fprintf(inputfile,'\n%-10s\t  %u\n','nstep',nstep);
+    fprintf(inputfile,'\n%-10s\t  %u\n','nstep',Nstep);
     fprintf(inputfile,'%-10s\t  %.3f\n','Tmin', Tmin);
     fprintf(inputfile,'%-10s\t  %.3f\n','Tmax', Tmax);
     fprintf(inputfile,'%-10s\t  %.3f\n','s_interval', s_int);
     fprintf(inputfile,'%-10s\t  %.3f\n','T_interval', T_int);    
     fprintf(inputfile,'%-10s\t', 'A'); fprintf(inputfile,'%.3f\t',A);
     fprintf(inputfile,'\n%-10s\t  %.3f\n','s_target',s_tar);
-    fprintf(inputfile,'%-10s\t  %.3f\n','Reward mode ',Rmode);
     fprintf(inputfile,'%-10s\t  %.3f\n','alpha',alpha);
     fprintf(inputfile,'%-10s\t  %.3f\n','gamma',gamma);    
     fprintf(inputfile,'%-10s\t  %u\n','rng',irng);
@@ -60,10 +58,10 @@ cd(workingfolder)
 Ss=(s_int/2):s_int:1;            
 ST=(Tmin+T_int/2):T_int:Tmax;
 Q=zeros(length(Ss),length(ST),length(A));   
-for iepoch=1:epoch     
+for iepoch=1:Nepoch     
     ieps=eps(iepoch); 
-    Statedata=zeros(nstep+1,3); %[istep sigma T]
-    Actiondata=zeros(nstep,1);% action index
+    Statedata=zeros(Nstep+1,3); %[istep sigma T]
+    Actiondata=zeros(Nstep,1);% action index
 
     s1=0.1*rand; T1=round(Tmin+(Tmax-Tmin)*rand,2); 
     s=s1; T=T1;
@@ -74,7 +72,7 @@ for iepoch=1:epoch
     istep=0; 
     Statedata(istep+1,1:3)=[istep s1 T1]; %[istep sigma T]
 
-    for istep=1:nstep
+    for istep=1:Nstep
         eps_rand=rand; 
         if eps_rand >= ieps % choose action at maxQ    
             ia=find(Q(iss1,iss2,:)==max(Q(iss1,iss2,:)));
@@ -101,11 +99,9 @@ for iepoch=1:epoch
         cd(workingfolder)
         s1=qcplot(end,2); %sigma ratio of last step of the simulation above
         
-        % calculate the reward:
-        if Rmode==1;       rwd_1=-abs(s1-s_tar);
-        elseif Rmode==2;   rwd_1=-(s1-s_tar)^2;
-        end
-
+        % calculate the reward:        
+        rwd_1=-(s1-s_tar)^2;
+        
         %update Q table by s_t, a_t, R_(t+1), s_(t+1) 
         xx1=abs(Ss-s1); xx2=abs(ST-T1);
         iss1_1=find(xx1==min(xx1)) ;    iss2_1=find(xx2==min(xx2)) ; 
@@ -117,6 +113,7 @@ for iepoch=1:epoch
 
        iss1=iss1_1;  iss2=iss2_1; T=T1; 
     end
+    
 %% save data each epoch
 reshapeQ=reshape(Q,[],1);
 save(strcat('train_Q_epoch',num2str(iepoch,'%u'),'.dat'),'reshapeQ','-ascii')
