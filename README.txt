@@ -3,8 +3,8 @@ REINFORCEMENT LEARNING FOR SELF-ASSEMBLY OF PATCHY PARTICLES
 This file is to show how to use the codes for Reinforcement Learning for self-assemblies of patchy particles, by employing Q-table.
 According to [I], the Q-table Q(sigma,T,a), where sigma, T are states and a is action, is trained with N_epoch epochs, each epoch contains N_step of applying action a (changing T), in each step of N_step, the Brownian Dynamics simulation is performed in a certain time and the last snapshot is used for the next step.  
 
-If use the code, please refer to articles
-   (I)  Uyen Tu Lieu, and Natsuhiko Yoshinaga, "Dynamic control of self-assembly of quasicrystalline structures through reinforcement learning", (arXiv:2309.06869)
+If you use the code in your work, please cite the following reference
+   (I)  Uyen Tu Lieu and Natsuhiko Yoshinaga, "Dynamic control of self-assembly of quasicrystalline structures through reinforcement learning", submitted, https://arxiv.org/abs/2309.06869
 
 
 ### 1-STRUCTURE OF THE FILES ### 
